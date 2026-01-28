@@ -1,18 +1,8 @@
 {
-    "version": 2,
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "server/index.js"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "client/dist/$1",
-            "check": true
-        },
-        {
-            "source": "/(.*)",
-            "destination": "client/dist/index.html"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
