@@ -56,9 +56,8 @@ const Register = () => {
             setLoading(false);
 
         } catch (err) {
-            console.error("Registration API failed, simulating success for demo");
-            // SIMULATE SUCCESS FOR NETLIFY DEMO
-            setSuccess(true);
+            console.error("Registration API failed:", err);
+            setErrors({ form: err.response?.data?.error || 'Registration failed. Please try again.' });
             setLoading(false);
         }
     };

@@ -48,29 +48,8 @@ const Login = () => {
             setLoading(false);
 
         } catch (err) {
-            console.error("Login API failed, checking mock credentials");
-
-            // MOCK LOGIN FOR DEMO (Since Netlify has no backend)
-            if (formData.mobile === '9972639290' && formData.password === 'suresh') {
-                const mockAdmin = { id: 999, name: 'Suresh Basaragaon', mobile: '9972639290', role: 'admin' };
-                login(mockAdmin, 'mock-admin-token');
-                navigate('/admin');
-                setLoading(false);
-                return;
-            }
-
-            // Fallback for demo user
-            if (formData.mobile.length === 10 && formData.password.length >= 4) {
-                const mockUser = { id: 100, name: 'Demo User', mobile: formData.mobile, role: 'user' };
-                login(mockUser, 'mock-user-token');
-                navigate('/products');
-                setLoading(false);
-                return;
-            }
-
-            const msg = err.response?.status === 401
-                ? 'Invalid user ID or password'
-                : 'Login failed. Try "9972639290" and "suresh" for Admin demo.';
+            console.error("Login API failed:", err);
+            const msg = err.response?.data?.error || 'Login failed. Please check your credentials.';
             setErrors({ form: msg });
             setLoading(false);
         }
