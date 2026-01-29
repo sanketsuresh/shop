@@ -187,10 +187,10 @@ app.patch('/api/admin/orders/:id/status', (req, res) => {
     }
 });
 
-// For local development
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+// For local development or non-Vercel production (like Render)
+if (!process.env.VERCEL) {
     app.listen(PORT, () => {
-        console.log(`Server running on http://localhost:${PORT}`);
+        console.log(`Server running on port ${PORT}`);
     });
 }
 

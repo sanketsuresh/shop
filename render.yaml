@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: kirani-backend
+    env: node
+    plan: free
+    buildCommand: npm install && cd server && npm install
+    startCommand: cd server && node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    disk:
+      name: kirani-db
+      mountPath: /opt/render/project/src/server/data
+      sizeGB: 1

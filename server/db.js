@@ -1,7 +1,11 @@
 const Database = require('better-sqlite3');
 const path = require('path');
 
-const db = new Database(path.join(__dirname, 'kirani.db'));
+const dbPath = process.env.DISK_PATH
+  ? path.join(process.env.DISK_PATH, 'kirani.db')
+  : path.join(__dirname, 'kirani.db');
+
+const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
 
 // Initialize tables
