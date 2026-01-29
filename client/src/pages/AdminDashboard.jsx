@@ -28,17 +28,22 @@ const AdminDashboard = () => {
                 api.get('/api/admin/orders'),
                 api.get('/api/products')
             ]);
-            setOrders(ordersRes.data);
-            setProducts(productsRes.data);
+            setOrders(Array.isArray(ordersRes.data) ? ordersRes.data : []);
+            setProducts(Array.isArray(productsRes.data) ? productsRes.data : []);
         } catch (error) {
-            console.error("Using mock admin data");
+            console.error("Using mock admin data due to error:", error);
             // Mock Orders for Demo
             setOrders([
                 { id: 1, user_name: 'Demo Customer', user_mobile: '9876543210', total_amount: 450, status: 'Pending', items: [{ product_name: 'Rice', quantity: 5 }] }
             ]);
             // Fallback to static products
-            const { PRODUCTS } = await import('../data/products');
-            setProducts(PRODUCTS);
+            try {
+                const data = await import('../data/products');
+                setProducts(data.PRODUCTS || []);
+            } catch (e) {
+                console.error("Static products import failed");
+                setProducts([]);
+            }
         } finally {
             setLoading(false);
         }

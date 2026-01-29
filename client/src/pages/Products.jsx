@@ -29,7 +29,9 @@ const Products = () => {
         try {
             // Fetch from API to get live Stock status
             const res = await api.get('/api/products');
-            setProducts(res.data);
+            if (Array.isArray(res.data)) {
+                setProducts(res.data);
+            }
         } catch (error) {
             console.error("Using static products (Offline Mode)");
             // Keep using the initial PRODUCTS state
